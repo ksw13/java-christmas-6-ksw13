@@ -1,6 +1,7 @@
 package christmas.model;
 
 import christmas.util.ExceptionMessage;
+import christmas.util.NumberConst;
 import christmas.util.Validator;
 
 public class VisitDay {
@@ -15,5 +16,14 @@ public class VisitDay {
         if (!Validator.isOnlyNumber(visitDay)) {
             throw new IllegalArgumentException(ExceptionMessage.NOT_NUMBER.getMessage());
         }
+        if (!validRange(visitDay)) {
+            throw new IllegalArgumentException(ExceptionMessage.NOT_IN_RANGE.getMessage());
+        }
     }
+
+    private boolean validRange(String visitDay) {
+        return NumberConst.FIRST_DAY <= Integer.parseInt(visitDay)
+                && Integer.parseInt(visitDay) <= NumberConst.LAST_DAY;
+    }
+
 }
