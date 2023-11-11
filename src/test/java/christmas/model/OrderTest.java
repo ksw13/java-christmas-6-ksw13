@@ -40,5 +40,13 @@ public class OrderTest {
                 .hasMessage(ExceptionMessage.NOT_CONTAIN_MENU.getMessage());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"제로콜라-1,레드와인-2", "샴페인-3,제로콜라-2"})
+    void 음료만_주문했는지_검증(String input) {
+        assertThatThrownBy(() -> new Order(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.ONLY_BEVERAGE.getMessage());
+    }
+
 
 }
