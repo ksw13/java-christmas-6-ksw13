@@ -1,6 +1,7 @@
 package christmas.controller;
 
 import christmas.model.Order;
+import christmas.model.OriginalCost;
 import christmas.model.VisitDay;
 import christmas.view.InputView;
 import christmas.view.OutputView;
@@ -16,5 +17,8 @@ public class EventController {
 
         outputView.printEventPreviewMessage(visitDay);
         outputView.printOrders(order);
+
+        OriginalCost originalCost = new OriginalCost(order);
+        outputView.printOriginalCost(originalCost);
     }
 }

@@ -24,6 +24,10 @@ public class Order {
         this.order = new HashMap<>(temporaryStorage);
     }
 
+    public int getOriginalCost() {
+        return order.keySet().stream().mapToInt(menu -> order.get(menu) * menu.getPrice()).sum();
+    }
+
     private void validDuplicatedMenu(String orders) {
         long uniqueCount = Arrays.stream(orders.split(MessageConst.DELIMITER))
                 .map(order -> order.split(MessageConst.HYPHEN))
@@ -77,10 +81,6 @@ public class Order {
 
     private boolean validFormat(String order) {
         return Pattern.matches(MessageConst.REGEXP_ORDER_FORMAT, order);
-    }
-
-    public Map<Menu, Integer> getOrder() {
-        return order;
     }
 
     @Override
