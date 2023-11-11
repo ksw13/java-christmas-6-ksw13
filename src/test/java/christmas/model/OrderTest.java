@@ -32,5 +32,13 @@ public class OrderTest {
                 .hasMessage(ExceptionMessage.NOT_VALID_TOTAL_QUANTITY.getMessage());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"비빔밥-1,떡볶이-2", "불고기-3,참치김밥-2"})
+    void 주문한_메뉴가_메뉴판에_있는지_검증(String input) {
+        assertThatThrownBy(() -> new Order(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.NOT_CONTAIN_MENU.getMessage());
+    }
+
 
 }
