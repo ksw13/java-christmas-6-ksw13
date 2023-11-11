@@ -4,11 +4,12 @@ import christmas.util.ExceptionMessage;
 import christmas.util.MessageConst;
 import java.util.Arrays;
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Order {
-    Map<Menu, Integer> order = new EnumMap<>(Menu.class);
+    Map<Menu, Integer> order;
 
     public Order(String orders) {
         validate(orders);
@@ -20,6 +21,7 @@ public class Order {
             temporaryStorage.put(getMenu(name), quantity);
         }
         validExistOnlyBeverage(temporaryStorage);
+        this.order = new HashMap<>(temporaryStorage);
     }
 
     private void validDuplicatedMenu(String orders) {
@@ -79,5 +81,14 @@ public class Order {
 
     public Map<Menu, Integer> getOrder() {
         return order;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Menu menu : order.keySet()) {
+            sb.append(menu.getName() + " " + order.get(menu) + "개\n");
+        }
+        return sb.toString();
     }
 }

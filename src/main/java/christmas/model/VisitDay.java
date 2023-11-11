@@ -26,4 +26,7 @@ public class VisitDay {
                 && Integer.parseInt(visitDay) <= NumberConst.LAST_DAY;
     }
 
+    public int getVisitDay() {
+        return visitDay;
+    }
 }

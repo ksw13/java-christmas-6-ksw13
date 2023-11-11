@@ -13,5 +13,8 @@ public class EventController {
         outputView.printStartMessage();
         VisitDay visitDay = new VisitDay(inputView.inputVisitDay());
         Order order = new Order(inputView.inputOrder());
+
+        outputView.printEventPreviewMessage(visitDay);
+        outputView.printOrders(order);
     }
 }
