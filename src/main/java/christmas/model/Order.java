@@ -3,11 +3,29 @@ package christmas.model;
 import christmas.util.ExceptionMessage;
 import christmas.util.MessageConst;
 import java.util.Arrays;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Order {
-    public Order(String order) {
-        validate(order);
+    Map<Menu, Integer> order = new EnumMap<>(Menu.class);
+
+    public Order(String orders) {
+        validate(orders);
+        Map<Menu, Integer> temporaryStorage = new EnumMap<>(Menu.class);
+        String[] order = orders.split(MessageConst.DELIMITER);
+        for (String menu : order) {
+            String name = menu.split(MessageConst.HYPHEN)[0];
+            int quantity = Integer.parseInt(menu.split(MessageConst.HYPHEN)[1]);
+            temporaryStorage.put(getMenu(name), quantity);
+        }
+    }
+
+    private Menu getMenu(String name) {
+        return Arrays.stream(Menu.values())
+                .filter(menu -> menu.getName().equals(name))
+                .findAny()
+                .orElseThrow(() -> new IllegalArgumentException(ExceptionMessage.NOT_CONTAIN_MENU.getMessage()));
     }
 
     private void validate(String order) {
@@ -35,5 +53,9 @@ public class Order {
 
     private boolean validFormat(String order) {
         return Pattern.matches(MessageConst.REGEXP_ORDER_FORMAT, order);
+    }
+
+    public Map<Menu, Integer> getOrder() {
+        return order;
     }
 }
