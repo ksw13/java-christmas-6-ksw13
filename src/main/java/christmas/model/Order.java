@@ -22,6 +22,18 @@ public class Order {
         validExistOnlyBeverage(temporaryStorage);
     }
 
+    private void validDuplicatedMenu(String orders) {
+        long uniqueCount = Arrays.stream(orders.split(MessageConst.DELIMITER))
+                .map(order -> order.split(MessageConst.HYPHEN))
+                .map(order -> order[0])
+                .distinct()
+                .count();
+        int ordersCount = orders.split(MessageConst.DELIMITER).length;
+        if (uniqueCount != ordersCount) {
+            throw new IllegalArgumentException(ExceptionMessage.DUPLICATED_MENU.getMessage());
+        }
+    }
+
     private void validExistOnlyBeverage(Map<Menu, Integer> map) {
         boolean isOnlyBeverage = map.keySet().stream()
                 .allMatch(menu -> menu.getType().equals(MessageConst.BEVERAGE));
@@ -42,6 +54,7 @@ public class Order {
             throw new IllegalArgumentException(ExceptionMessage.NOT_VALID_FORMAT.getMessage());
         }
         validQuantity(order);
+        validDuplicatedMenu(order);
     }
 
     private void validQuantity(String orders) {
