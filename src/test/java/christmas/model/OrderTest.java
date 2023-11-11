@@ -48,5 +48,13 @@ public class OrderTest {
                 .hasMessage(ExceptionMessage.ONLY_BEVERAGE.getMessage());
     }
 
+    @ParameterizedTest
+    @ValueSource(strings = {"제로콜라-1,제로콜라-2", "샴페인-3,제로콜라-2,샴페인-1"})
+    void 중복메뉴가_있는지_검증(String input) {
+        assertThatThrownBy(() -> new Order(input))
+                .isInstanceOf(IllegalArgumentException.class)
+                .hasMessage(ExceptionMessage.DUPLICATED_MENU.getMessage());
+    }
+
 
 }
