@@ -19,6 +19,15 @@ public class Order {
             int quantity = Integer.parseInt(menu.split(MessageConst.HYPHEN)[1]);
             temporaryStorage.put(getMenu(name), quantity);
         }
+        validExistOnlyBeverage(temporaryStorage);
+    }
+
+    private void validExistOnlyBeverage(Map<Menu, Integer> map) {
+        boolean isOnlyBeverage = map.keySet().stream()
+                .allMatch(menu -> menu.getType().equals(MessageConst.BEVERAGE));
+        if (isOnlyBeverage) {
+            throw new IllegalArgumentException(ExceptionMessage.ONLY_BEVERAGE.getMessage());
+        }
     }
 
     private Menu getMenu(String name) {
