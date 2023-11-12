@@ -16,6 +16,7 @@ public class OutputView {
     public static final String FREEBIE_MSG = "<증정 메뉴>";
     public static final String DISCOUNT_MSG = "<혜택 내역>";
     public static final String TOTAL_DISCOUNT_MSG = "<총혜택 금액>";
+    public static final String EXPECTED_PAYMENT_MSG = "<할인 후 예상 결제 금액>";
 
     public void printStartMessage() {
         System.out.println(START_MSG);
@@ -52,6 +53,13 @@ public class OutputView {
         System.out.println(TOTAL_DISCOUNT_MSG);
         System.out.println(MessageConst.getDiscountDecimalFormat(discountResult.getTotalDiscountCost()));
         System.out.println();
+    }
+
+    public void printExpectedPaymentCost(OriginalCost originalCost, DiscountResult discountResult) {
+        System.out.println(EXPECTED_PAYMENT_MSG);
+        System.out.println(
+                getCostDecimalFormat(
+                        originalCost.getOriginalCost() - discountResult.calTotalDiscountCostExcludeFreebie()));
     }
 
     public String getCostDecimalFormat(int input) {

@@ -73,6 +73,13 @@ public class DiscountResult {
                 .sum();
     }
 
+    public int calTotalDiscountCostExcludeFreebie() {
+        return discountResult.keySet().stream()
+                .filter(event -> !event.equals(Event.FREEBIE))
+                .mapToInt(event -> discountResult.get(event))
+                .sum();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
