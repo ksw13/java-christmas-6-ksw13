@@ -18,4 +18,8 @@ public enum Freebie {
         }
         return EMPTY.message;
     }
+
+    public static boolean isExistDiscount(int originalCost) {
+        return CHAMPAGNE.costBaseline <= originalCost;
+    }
 }

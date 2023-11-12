@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.DiscountResult;
 import christmas.model.Freebie;
 import christmas.model.Order;
 import christmas.model.OriginalCost;
@@ -12,6 +13,7 @@ public class OutputView {
     public static final String ORDER_MSG = "<주문 메뉴>";
     public static final String ORIGINAL_COST_MSG = "<할인 전 총주문 금액>";
     public static final String FREEBIE_MSG = "<증정 메뉴>";
+    public static final String DISCOUNT_MSG = "<혜택 내역>";
 
     public void printStartMessage() {
         System.out.println(START_MSG);
@@ -29,7 +31,7 @@ public class OutputView {
 
     public void printOriginalCost(OriginalCost originalCost) {
         System.out.println(ORIGINAL_COST_MSG);
-        System.out.println(getDecimalFormat(originalCost.getOriginalCost()));
+        System.out.println(getCostDecimalFormat(originalCost.getOriginalCost()));
         System.out.println();
     }
 
@@ -39,7 +41,12 @@ public class OutputView {
         System.out.println();
     }
 
-    public String getDecimalFormat(int input) {
+    public void printDiscount(DiscountResult discountResult) {
+        System.out.println(DISCOUNT_MSG);
+        System.out.println(discountResult.toString());
+    }
+
+    public String getCostDecimalFormat(int input) {
         DecimalFormat decimalFormat = new DecimalFormat("#,###원");
         return decimalFormat.format(input);
     }

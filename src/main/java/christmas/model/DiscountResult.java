@@ -1,63 +1,77 @@
 package christmas.model;
 
 import christmas.util.MessageConst;
-import christmas.util.NumberConst;
+import java.util.EnumMap;
+import java.util.Map;
 
 public class DiscountResult {
-    private int discountResult;
+    Map<Event, Integer> discountResult = new EnumMap<>(Event.class);
     private VisitDay visitDay;
     private Order order;
+    private OriginalCost originalCost;
 
-    public DiscountResult(VisitDay visitDay, Order order) {
-        this.discountResult = 0;
+    public DiscountResult(VisitDay visitDay, Order order, OriginalCost originalCost) {
         this.visitDay = visitDay;
         this.order = order;
+        this.originalCost = originalCost;
         calDiscount();
     }
 
     private void calDiscount() {
-        discountResult += calDDayDiscount();
-        discountResult += calWeekdayDiscount();
-        discountResult += calWeekendDiscount();
-        discountResult += calSpecialDiscount();
+        calDDayDiscount();
+        calWeekdayDiscount();
+        calWeekendDiscount();
+        calSpecialDiscount();
+        calFreebieDiscount();
     }
 
-    public int calDDayDiscount() {
+    public void calFreebieDiscount() {
+        if (Freebie.isExistDiscount(originalCost.getOriginalCost())) {
+            discountResult.put(Event.FREEBIE, Event.FREEBIE.getDiscountPrice());
+        }
+    }
+
+    public void calDDayDiscount() {
         if (Event.D_DAY.hasDate(visitDay.getVisitDay())) {
-            return Event.D_DAY.getDiscountPrice(visitDay.getVisitDay());
+            discountResult.put(Event.D_DAY, Event.D_DAY.getDiscountPrice(visitDay.getVisitDay()));
         }
-        return NumberConst.ZERO;
     }
 
-    public int calSpecialDiscount() {
+    public void calSpecialDiscount() {
         if (Event.SPECIAL.hasDate(visitDay.getVisitDay())) {
-            return Event.SPECIAL.getDiscountPrice();
+            discountResult.put(Event.SPECIAL, Event.SPECIAL.getDiscountPrice());
         }
-        return NumberConst.ZERO;
     }
 
-    public int calWeekdayDiscount() {
+    public void calWeekdayDiscount() {
         long dessertCount = order.getOrder().keySet().stream()
                 .filter(menu -> menu.getType().equals(MessageConst.DESSERT))
                 .mapToInt(menu -> order.getOrder().get(menu))
                 .sum();
 
         if (Event.WEEKDAY.hasDate(visitDay.getVisitDay())) {
-            return Event.WEEKDAY.getDiscountPrice() * (int) dessertCount;
+            discountResult.put(Event.WEEKDAY, Event.WEEKDAY.getDiscountPrice() * (int) dessertCount);
         }
-        return NumberConst.ZERO;
     }
 
-    public int calWeekendDiscount() {
+    public void calWeekendDiscount() {
         long mainCount = order.getOrder().keySet().stream()
                 .filter(menu -> menu.getType().equals(MessageConst.MAIN))
                 .mapToInt(menu -> order.getOrder().get(menu))
                 .sum();
 
         if (Event.WEEKEND.hasDate(visitDay.getVisitDay())) {
-            return Event.WEEKEND.getDiscountPrice() * (int) mainCount;
+            discountResult.put(Event.WEEKEND, Event.WEEKEND.getDiscountPrice() * (int) mainCount);
         }
-        return NumberConst.ZERO;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Event event : discountResult.keySet()) {
+            sb.append(
+                    event.getName() + " : " + MessageConst.getDiscountDecimalFormat(discountResult.get(event)) + "\n");
+        }
+        return sb.toString();
+    }
 }
