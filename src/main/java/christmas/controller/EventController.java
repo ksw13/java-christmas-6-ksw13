@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.model.DiscountResult;
 import christmas.model.Order;
 import christmas.model.OriginalCost;
 import christmas.model.VisitDay;
@@ -21,5 +22,6 @@ public class EventController {
         OriginalCost originalCost = new OriginalCost(order);
         outputView.printOriginalCost(originalCost);
         outputView.printFreebie(originalCost);
+        DiscountResult discountResult = new DiscountResult(visitDay, order);
     }
 }

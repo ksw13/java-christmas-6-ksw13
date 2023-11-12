@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.Freebie;
 import christmas.model.Order;
 import christmas.model.OriginalCost;
 import christmas.model.VisitDay;
@@ -34,7 +35,7 @@ public class OutputView {
 
     public void printFreebie(OriginalCost originalCost) {
         System.out.println(FREEBIE_MSG);
-        System.out.println(originalCost.getFreebie());
+        System.out.println(Freebie.compareCostBaseline(originalCost.getOriginalCost()));
         System.out.println();
     }
 

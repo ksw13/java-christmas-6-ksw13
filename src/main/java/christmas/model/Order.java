@@ -91,4 +91,8 @@ public class Order {
         }
         return sb.toString();
     }
+
+    public Map<Menu, Integer> getOrder() {
+        return order;
+    }
 }
