@@ -10,6 +10,7 @@ public class OutputView {
     public static final String EVENT_PREVIEW_MSG = "12월 %s일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!";
     public static final String ORDER_MSG = "<주문 메뉴>";
     public static final String ORIGINAL_COST_MSG = "<할인 전 총주문 금액>";
+    public static final String FREEBIE_MSG = "<증정 메뉴>";
 
     public void printStartMessage() {
         System.out.println(START_MSG);
@@ -28,6 +29,12 @@ public class OutputView {
     public void printOriginalCost(OriginalCost originalCost) {
         System.out.println(ORIGINAL_COST_MSG);
         System.out.println(getDecimalFormat(originalCost.getOriginalCost()));
+        System.out.println();
+    }
+
+    public void printFreebie(OriginalCost originalCost) {
+        System.out.println(FREEBIE_MSG);
+        System.out.println(originalCost.getFreebie());
         System.out.println();
     }
 

@@ -10,4 +10,8 @@ public class OriginalCost {
     public int getOriginalCost() {
         return originalCost;
     }
+
+    public String getFreebie() {
+        return Freebie.compareCostBaseline(originalCost);
+    }
 }
