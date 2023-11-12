@@ -26,5 +26,6 @@ public class EventController {
         outputView.printDiscount(discountResult);
         outputView.printTotalDiscountCost(discountResult);
         outputView.printExpectedPaymentCost(originalCost, discountResult);
+        outputView.printBadge(discountResult);
     }
 }

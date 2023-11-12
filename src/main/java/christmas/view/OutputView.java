@@ -1,5 +1,6 @@
 package christmas.view;
 
+import christmas.model.Badge;
 import christmas.model.DiscountResult;
 import christmas.model.Freebie;
 import christmas.model.Order;
@@ -17,6 +18,7 @@ public class OutputView {
     public static final String DISCOUNT_MSG = "<혜택 내역>";
     public static final String TOTAL_DISCOUNT_MSG = "<총혜택 금액>";
     public static final String EXPECTED_PAYMENT_MSG = "<할인 후 예상 결제 금액>";
+    public static final String BADGE_MSG = "<12월 이벤트 배지>";
 
     public void printStartMessage() {
         System.out.println(START_MSG);
@@ -60,6 +62,12 @@ public class OutputView {
         System.out.println(
                 getCostDecimalFormat(
                         originalCost.getOriginalCost() - discountResult.calTotalDiscountCostExcludeFreebie()));
+        System.out.println();
+    }
+
+    public void printBadge(DiscountResult discountResult) {
+        System.out.println(BADGE_MSG);
+        System.out.println(Badge.compareCostBaseline(discountResult.getTotalDiscountCost()));
     }
 
     public String getCostDecimalFormat(int input) {
