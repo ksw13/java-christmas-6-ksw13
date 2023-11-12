@@ -6,6 +6,7 @@ import java.util.Map;
 
 public class DiscountResult {
     Map<Event, Integer> discountResult = new EnumMap<>(Event.class);
+    int totalDiscountCost = 0;
     private VisitDay visitDay;
     private Order order;
     private OriginalCost originalCost;
@@ -15,6 +16,7 @@ public class DiscountResult {
         this.order = order;
         this.originalCost = originalCost;
         calDiscount();
+        calTotalDiscountCost();
     }
 
     private void calDiscount() {
@@ -65,6 +67,12 @@ public class DiscountResult {
         }
     }
 
+    public void calTotalDiscountCost() {
+        totalDiscountCost = discountResult.keySet().stream()
+                .mapToInt(event -> discountResult.get(event))
+                .sum();
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -73,5 +81,9 @@ public class DiscountResult {
                     event.getName() + " : " + MessageConst.getDiscountDecimalFormat(discountResult.get(event)) + "\n");
         }
         return sb.toString();
+    }
+
+    public int getTotalDiscountCost() {
+        return totalDiscountCost;
     }
 }

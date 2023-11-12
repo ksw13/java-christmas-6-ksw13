@@ -24,5 +24,6 @@ public class EventController {
         outputView.printFreebie(originalCost);
         DiscountResult discountResult = new DiscountResult(visitDay, order, originalCost);
         outputView.printDiscount(discountResult);
+        outputView.printTotalDiscountCost(discountResult);
     }
 }

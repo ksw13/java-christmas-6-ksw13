@@ -5,6 +5,7 @@ import christmas.model.Freebie;
 import christmas.model.Order;
 import christmas.model.OriginalCost;
 import christmas.model.VisitDay;
+import christmas.util.MessageConst;
 import java.text.DecimalFormat;
 
 public class OutputView {
@@ -14,6 +15,7 @@ public class OutputView {
     public static final String ORIGINAL_COST_MSG = "<할인 전 총주문 금액>";
     public static final String FREEBIE_MSG = "<증정 메뉴>";
     public static final String DISCOUNT_MSG = "<혜택 내역>";
+    public static final String TOTAL_DISCOUNT_MSG = "<총혜택 금액>";
 
     public void printStartMessage() {
         System.out.println(START_MSG);
@@ -44,6 +46,12 @@ public class OutputView {
     public void printDiscount(DiscountResult discountResult) {
         System.out.println(DISCOUNT_MSG);
         System.out.println(discountResult.toString());
+    }
+
+    public void printTotalDiscountCost(DiscountResult discountResult) {
+        System.out.println(TOTAL_DISCOUNT_MSG);
+        System.out.println(MessageConst.getDiscountDecimalFormat(discountResult.getTotalDiscountCost()));
+        System.out.println();
     }
 
     public String getCostDecimalFormat(int input) {
