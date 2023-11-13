@@ -64,8 +64,8 @@ public class Order {
     }
 
     private void validQuantity(String orders) {
-        int totalQuantity = Arrays.stream(orders.split(","))
-                .map(order -> order.split("-"))
+        int totalQuantity = Arrays.stream(orders.split(MessageConst.DELIMITER))
+                .map(order -> order.split(MessageConst.HYPHEN))
                 .mapToInt(order -> Integer.parseInt(order[1]))
                 .peek(quantity -> {
                     if (quantity < 1) {
@@ -87,7 +87,7 @@ public class Order {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Menu menu : order.keySet()) {
-            sb.append(menu.getName() + " " + order.get(menu) + "개\n");
+            sb.append(menu.getName() + " " + order.get(menu) + "개" + MessageConst.LINE_SEPARATOR);
         }
         return sb.toString();
     }

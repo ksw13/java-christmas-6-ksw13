@@ -7,7 +7,7 @@ import java.util.Map;
 
 public class DiscountResult {
     private Map<Event, Integer> discountResult = new EnumMap<>(Event.class);
-    private int totalDiscountCost = 0;
+    private int totalDiscountCost = NumberConst.ZERO;
     private VisitDay visitDay;
     private Order order;
     private OriginalCost originalCost;
