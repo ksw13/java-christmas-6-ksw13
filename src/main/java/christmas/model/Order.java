@@ -9,7 +9,7 @@ import java.util.Map;
 import java.util.regex.Pattern;
 
 public class Order {
-    Map<Menu, Integer> order;
+    private Map<Menu, Integer> order;
 
     public Order(String orders) {
         validate(orders);

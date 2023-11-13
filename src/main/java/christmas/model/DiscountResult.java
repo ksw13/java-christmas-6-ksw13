@@ -6,8 +6,8 @@ import java.util.EnumMap;
 import java.util.Map;
 
 public class DiscountResult {
-    Map<Event, Integer> discountResult = new EnumMap<>(Event.class);
-    int totalDiscountCost = 0;
+    private Map<Event, Integer> discountResult = new EnumMap<>(Event.class);
+    private int totalDiscountCost = 0;
     private VisitDay visitDay;
     private Order order;
     private OriginalCost originalCost;
