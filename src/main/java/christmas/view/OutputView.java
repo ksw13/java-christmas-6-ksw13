@@ -74,4 +74,8 @@ public class OutputView {
         DecimalFormat decimalFormat = new DecimalFormat("#,###원");
         return decimalFormat.format(input);
     }
+
+    public void printExceptionMessage(IllegalArgumentException exception) {
+        System.out.println(exception.getMessage());
+    }
 }

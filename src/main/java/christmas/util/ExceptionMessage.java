@@ -1,7 +1,7 @@
 package christmas.util;
 
 public enum ExceptionMessage {
-    NOT_NUMBER("입력값은 숫자만 가능합니다."),
+    NOT_NUMBER("유효하지 않은 날짜입니다."),
     NOT_IN_RANGE("유효하지 않은 날짜입니다."),
     NOT_VALID_FORMAT("유효하지 않은 주문입니다."),
     NOT_VALID_QUANTITY("유효하지 않은 주문입니다."),

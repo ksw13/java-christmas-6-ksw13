@@ -11,10 +11,13 @@ public class EventController {
     OutputView outputView = new OutputView();
     InputView inputView = new InputView();
 
+    VisitDay visitDay;
+    Order order;
+
     public void run() {
         outputView.printStartMessage();
-        VisitDay visitDay = new VisitDay(inputView.inputVisitDay());
-        Order order = new Order(inputView.inputOrder());
+        createVisitDay();
+        createOrder();
 
         outputView.printEventPreviewMessage(visitDay);
         outputView.printOrders(order);
@@ -27,5 +30,23 @@ public class EventController {
         outputView.printTotalDiscountCost(discountResult);
         outputView.printExpectedPaymentCost(originalCost, discountResult);
         outputView.printBadge(discountResult);
+    }
+
+    private void createOrder() {
+        try {
+            order = new Order(inputView.inputOrder());
+        } catch (IllegalArgumentException exception) {
+            outputView.printExceptionMessage(exception);
+            createOrder();
+        }
+    }
+
+    private void createVisitDay() {
+        try {
+            visitDay = new VisitDay(inputView.inputVisitDay());
+        } catch (IllegalArgumentException exception) {
+            outputView.printExceptionMessage(exception);
+            createVisitDay();
+        }
     }
 }
