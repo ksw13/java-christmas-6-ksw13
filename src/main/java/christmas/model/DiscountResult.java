@@ -1,6 +1,7 @@
 package christmas.model;
 
 import christmas.util.MessageConst;
+import christmas.util.NumberConst;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -20,11 +21,13 @@ public class DiscountResult {
     }
 
     private void calDiscount() {
-        calDDayDiscount();
-        calWeekdayDiscount();
-        calWeekendDiscount();
-        calSpecialDiscount();
-        calFreebieDiscount();
+        if (originalCost.getOriginalCost() >= NumberConst.MINIMUM_ORDER_COST) {
+            calDDayDiscount();
+            calWeekdayDiscount();
+            calWeekendDiscount();
+            calSpecialDiscount();
+            calFreebieDiscount();
+        }
     }
 
     public void calFreebieDiscount() {
@@ -82,10 +85,15 @@ public class DiscountResult {
 
     @Override
     public String toString() {
+        if (discountResult.isEmpty()) {
+            return MessageConst.NONE + MessageConst.LINE_SEPARATOR;
+        }
+
         StringBuilder sb = new StringBuilder();
         for (Event event : discountResult.keySet()) {
             sb.append(
-                    event.getName() + " : " + MessageConst.getDiscountDecimalFormat(discountResult.get(event)) + "\n");
+                    event.getName() + " : " + MessageConst.getDiscountDecimalFormat(discountResult.get(event))
+                            + MessageConst.LINE_SEPARATOR);
         }
         return sb.toString();
     }

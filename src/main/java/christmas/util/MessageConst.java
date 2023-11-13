@@ -9,8 +9,14 @@ public class MessageConst {
     public static final String BEVERAGE = "음료";
     public static final String DESSERT = "디저트";
     public static final String MAIN = "메인";
+    public static final String NONE = "없음";
+    public static final String LINE_SEPARATOR = "\n";
+    public static final String ZERO_COST = "0원";
 
     public static String getDiscountDecimalFormat(int input) {
+        if (input == NumberConst.ZERO) {
+            return ZERO_COST;
+        }
         DecimalFormat decimalFormat = new DecimalFormat("-#,###원");
         return decimalFormat.format(input);
     }

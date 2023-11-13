@@ -1,7 +1,7 @@
 package christmas.model;
 
 public class OriginalCost {
-    int originalCost;
+    private int originalCost;
 
     public OriginalCost(Order order) {
         this.originalCost = order.getOriginalCost();
