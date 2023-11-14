@@ -10,4 +10,11 @@ public class FreebieTest {
     void 증정상품_있는지_검증(int originalCost, String message) {
         Assertions.assertThat(Freebie.compareCostBaseline(originalCost)).isEqualTo(message);
     }
+
+    @ParameterizedTest
+    @CsvSource(value = {"123000:true", "1230:false"}, delimiter = ':')
+    void 증정할인이_있는지_판별(int originalCost, Boolean expected) {
+        Assertions.assertThat(Freebie.isExistDiscount(originalCost)).isEqualTo(expected);
+    }
+
 }
