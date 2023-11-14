@@ -13,23 +13,37 @@ public class EventController {
 
     VisitDay visitDay;
     Order order;
+    OriginalCost originalCost;
+    DiscountResult discountResult;
 
     public void run() {
-        outputView.printStartMessage();
-        createVisitDay();
-        createOrder();
+        order();
+        
+        orderResult();
 
-        outputView.printEventPreviewMessage(visitDay);
-        outputView.printOrders(order);
+        promotionResult();
+    }
 
-        OriginalCost originalCost = new OriginalCost(order);
-        outputView.printOriginalCost(originalCost);
+    private void promotionResult() {
         outputView.printFreebie(originalCost);
-        DiscountResult discountResult = new DiscountResult(visitDay, order, originalCost);
+        discountResult = new DiscountResult(visitDay, order, originalCost);
         outputView.printDiscount(discountResult);
         outputView.printTotalDiscountCost(discountResult);
         outputView.printExpectedPaymentCost(originalCost, discountResult);
         outputView.printBadge(discountResult);
+    }
+
+    private void orderResult() {
+        outputView.printEventPreviewMessage(visitDay);
+        outputView.printOrders(order);
+        originalCost = new OriginalCost(order);
+        outputView.printOriginalCost(originalCost);
+    }
+
+    private void order() {
+        outputView.printStartMessage();
+        createVisitDay();
+        createOrder();
     }
 
     private void createOrder() {
